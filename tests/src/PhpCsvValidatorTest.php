@@ -25,11 +25,20 @@ class PhpCsvValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidRow()
     {
-        $this->assertEquals(1, 1);
+        $this->object->loadSchemeFromFile("tests/files/example-scheme1.json");
+
+        $this->assertEquals(true, $this->object->isValidRow("test;test;test;test"));
+        $this->assertEquals(false, $this->object->isValidRow("test;test;test;test;test"));
+
+        $this->object->loadSchemeFromFile("tests/files/example-scheme2.json");
+
+        $this->assertEquals(false, $this->object->isValidRow("test;test;test;test"));
+        $this->assertEquals(true, $this->object->isValidRow('1;"Bob";"bob@example.com";25877'));
     }
 
     /**
      * @covers PhpCsvValidator::isValidFile
+     * @covers PhpCsvValidator::loadSchemeFromFile
      */
     public function testIsValidFile()
     {
@@ -37,42 +46,41 @@ class PhpCsvValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers PhpCsvValidator::loadSchemaFromFile
+     * @covers PhpCsvValidator::loadSchemeFromFile
+     * @covers PhpCsvValidator::setScheme
+     * @covers PhpCsvValidator::getScheme
      */
-    public function testLoadSchemaFromFile()
+    public function testLoadSchemeFromFile()
     {
-        $this->assertEquals(1, 1);
+        $this->object->loadSchemeFromFile("tests/files/example-scheme1.json");
+
+        $this->assertEquals(true, ($this->object->getScheme() instanceof PhpCsvValidatorScheme));
+        $this->assertEquals("Example Scheme 1", $this->object->getScheme()->label);
     }
 
     /**
-     * @covers PhpCsvValidator::getSchema
+     * @covers PhpCsvValidator::getScheme
+     * @covers PhpCsvValidator::setScheme
      */
-    public function testGetSchema()
+    public function testGetScheme()
     {
-        $this->assertEquals(1, 1);
-    }
+        $this->object->setScheme(new PhpCsvValidatorScheme("{\"label\":\"Test\", \"skipFirstLine\": 0, \"regex\": \"/(.*)/\"}"));
 
-    /**
-     * @covers PhpCsvValidator::setSchema
-     */
-    public function testSetSchema()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    /**
-     * @covers PhpCsvValidator::getErrorMessages
-     */
-    public function testGetErrorMessages()
-    {
-        $this->assertEquals(1, 1);
+        $this->assertEquals("Test", $this->object->getScheme()->label);
+        $this->assertEquals(0, $this->object->getScheme()->skipFirstLine);
+        $this->assertEquals("/(.*)/", $this->object->getScheme()->regex);
     }
 
     /**
      * @covers PhpCsvValidator::setErrorMessages
+     * @covers PhpCsvValidator::getErrorMessages
      */
-    public function testSetErrorMessages()
+    public function testErrorMessages()
     {
-        $this->assertEquals(1, 1);
+        $this->object->setErrorMessages("Message 1");
+        $this->object->setErrorMessages("Message 2");
+        $this->object->setErrorMessages("Message 3");
+
+        $this->assertEquals(3, count($this->object->getErrorMessages()));
     }
 }

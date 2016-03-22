@@ -7,10 +7,14 @@
  */
 class PhpCsvValidatorSchemeTest extends PHPUnit_Framework_TestCase
 {
-    private $json = "{\"label\":\"Test\", \"regex\": \"/(.*)/\"}";
+    /**
+     * @var string
+     */
+    private $json = "{\"label\":\"Test\", \"skipFirstLine\": 0, \"regex\": \"/(.*)/\"}";
 
     /**
      * @covers PhpCsvValidatorScheme::__construct
+     * @covers PhpCsvValidatorScheme::set
      */
     public function testSchemeOnConstruct() {
         $s = new PhpCsvValidatorScheme($this->json);
@@ -20,6 +24,7 @@ class PhpCsvValidatorSchemeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers PhpCsvValidatorScheme::__construct
      * @covers PhpCsvValidatorScheme::set
      */
     public function testSchemeWithSetMethod() {

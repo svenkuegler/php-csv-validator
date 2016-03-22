@@ -1,0 +1,5 @@
+{
+  "label": "Example Scheme 1",
+  "skipFirstLine": 0,
+  "regex": "/^([^;]+;){3}[^;]+$/"
+}

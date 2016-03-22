@@ -28,7 +28,7 @@ class PhpCsvValidator
     {
         if (!is_null($scheme)) {
             if ($scheme instanceof PhpCsvValidatorScheme) {
-                $this->setSchema($scheme);
+                $this->setScheme($scheme);
             } else {
                 throw new PhpCsvValidatorException("Invalid Scheme!");
             }
@@ -41,7 +41,7 @@ class PhpCsvValidator
      */
     public function isValidRow($row)
     {
-        if(preg_match($this->getSchema()->regex, $row)) {
+        if(preg_match($this->getScheme()->regex, $row)) {
             return true;
         }
 
@@ -78,28 +78,28 @@ class PhpCsvValidator
      *
      * @throws PhpCsvValidatorException
      */
-    public function loadSchemaFromFile($file)
+    public function loadSchemeFromFile($file)
     {
         if (!is_readable($file)) {
             throw new PhpCsvValidatorException("Could not Read Scheme File!");
         }
 
-        $this->setSchema(new PhpCsvValidatorScheme(file_get_contents($file)));
+        $this->setScheme(new PhpCsvValidatorScheme(file_get_contents($file)));
     }
 
     /**
      * @return PhpCsvValidatorScheme
      */
-    public function getSchema()
+    public function getScheme()
     {
         return $this->scheme;
     }
 
     /**
-     * @param string $scheme
+     * @param PhpCsvValidatorScheme $scheme
      * @return PhpCsvValidator
      */
-    public function setSchema($scheme)
+    public function setScheme($scheme)
     {
         $this->scheme = $scheme;
 
