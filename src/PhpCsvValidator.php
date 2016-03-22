@@ -131,7 +131,22 @@ class PhpCsvValidator
  */
 class PhpCsvValidatorException extends Exception
 {
+    /**
+     * PhpCsvValidatorException constructor.
+     * @param string $message
+     * @param int $code
+     * @param Exception|null $previous
+     */
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
 
+    /**
+     * @return string
+     */
+    public function __toString() {
+        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+    }
 }
 
 /**
@@ -151,6 +166,11 @@ class PhpCsvValidatorScheme
     public $regex = "";
 
     /**
+     * @var int
+     */
+    public $skipFirstLine = 0;
+
+    /**
      * PhpCsvValidatorScheme constructor.
      * @param bool $json
      */
@@ -167,7 +187,7 @@ class PhpCsvValidatorScheme
     public function set($data)
     {
         foreach ($data AS $key => $value) {
-            if (method_exists($this, $key)) {
+            if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
         }

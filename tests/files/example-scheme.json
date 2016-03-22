@@ -1,0 +1,5 @@
+{
+  "label": "Example Scheme",
+  "skipFirstLine": 0,
+  "regex": "/(.*)\.(.*)/"
+}
