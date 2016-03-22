@@ -1,0 +1,22 @@
+{
+  "name": "svenkuegler/php-csv-validator",
+  "description": "Simple PHP Class to validate CSV files / Single Rows",
+  "minimum-stability": "stable",
+  "type": "library",
+  "homepage": "https://github.com/svenkuegler/php-csv-validator",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sven Kuegler",
+      "email": "sven.kuegler@gmail.com",
+      "homepage": "http://www.sven-kuegler.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "classmap": ["src/PhpCsvValidator.php"]
+  }
+}
