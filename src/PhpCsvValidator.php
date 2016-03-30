@@ -144,7 +144,7 @@ class PhpCsvValidatorException extends Exception
     /**
      * @return string
      */
-    public function __toString() {
+    public function getExceptionMessage() {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 }

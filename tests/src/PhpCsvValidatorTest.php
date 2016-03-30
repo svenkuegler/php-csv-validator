@@ -59,6 +59,15 @@ class PhpCsvValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers PhpCsvValidator::loadSchemeFromFile
+     * @expectedException PhpCsvValidatorException
+     */
+    public function testLoadSchemeFromFileException()
+    {
+        $this->object->loadSchemeFromFile("path/to/invalid/filename.json");
+    }
+
+    /**
      * @covers PhpCsvValidator::getScheme
      * @covers PhpCsvValidator::setScheme
      */
