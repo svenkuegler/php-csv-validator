@@ -27,11 +27,11 @@ class PhpCsvValidator
     function __construct($scheme = null)
     {
         if (!is_null($scheme)) {
-            if ($scheme instanceof PhpCsvValidatorScheme) {
-                $this->setScheme($scheme);
-            } else {
+            if (!$scheme instanceof PhpCsvValidatorScheme) {
                 throw new PhpCsvValidatorException("Invalid Scheme!");
             }
+
+            $this->setScheme($scheme);
         }
     }
 
@@ -172,11 +172,11 @@ class PhpCsvValidatorScheme
 
     /**
      * PhpCsvValidatorScheme constructor.
-     * @param bool $json
+     * @param null|string $json
      */
-    public function __construct($json = false)
+    public function __construct($json = null)
     {
-        if ($json) {
+        if (!is_null($json)) {
             $this->set(json_decode($json, true));
         }
     }

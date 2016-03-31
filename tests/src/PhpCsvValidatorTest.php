@@ -13,11 +13,28 @@ class PhpCsvValidatorTest extends PHPUnit_Framework_TestCase
     protected $object;
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
+     * Init Class
      */
     protected function setUp() {
         $this->object = new PhpCsvValidator();
+    }
+
+    /**
+     * @covers PhpCsvValidator::getScheme
+     */
+    public function testConstructorParams() {
+        $test = new PhpCsvValidator(new PhpCsvValidatorScheme("{\"label\":\"Test\", \"skipFirstLine\": 0, \"regex\": \"/(.*)/\"}"));
+        $this->assertEquals("Test", $test->getScheme()->label);
+        $this->assertEquals(0, $test->getScheme()->skipFirstLine);
+        $this->assertEquals("/(.*)/", $test->getScheme()->regex);
+    }
+
+    /**
+     * @expectedException PhpCsvValidatorException
+     */
+    public function testConstructorException() {
+        $test = new PhpCsvValidator("foo bar");
+        $test->getScheme();
     }
 
     /**
