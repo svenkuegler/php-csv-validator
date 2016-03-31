@@ -20,6 +20,7 @@ class PhpCsvValidatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers PhpCsvValidator
      * @covers PhpCsvValidator::getScheme
      */
     public function testConstructorParams() {
@@ -59,7 +60,19 @@ class PhpCsvValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidFile()
     {
-        $this->assertEquals(1, 1);
+        $this->object->loadSchemeFromFile("tests/files/example-scheme2.json");
+        $this->assertEquals(true,$this->object->isValidFile("tests/files/example.csv"));
+    }
+
+    /**
+     * @covers PhpCsvValidator::isValidFile
+     * @covers PhpCsvValidator::loadSchemeFromFile
+     * @expectedException PhpCsvValidatorException
+     */
+    public function testIsValidFileException()
+    {
+        $this->object->loadSchemeFromFile("tests/files/example-scheme2.json");
+        $this->assertEquals(true,$this->object->isValidFile("path/to/invalid/file.csv"));
     }
 
     /**

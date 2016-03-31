@@ -64,9 +64,11 @@ class PhpCsvValidator
 
         $rows = file($file);
         foreach ($rows as $row) {
-            if (!$this->isValidRow($row)) {
+            if($this->scheme->skipFirstLine==1)
+                continue;
+
+            if (!$this->isValidRow($row))
                 return false;
-            }
         }
 
         return true;
@@ -85,6 +87,7 @@ class PhpCsvValidator
         }
 
         $this->setScheme(new PhpCsvValidatorScheme(file_get_contents($file)));
+        return $this;
     }
 
     /**
