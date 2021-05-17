@@ -63,8 +63,8 @@ class PhpCsvValidator
         }
 
         $rows = file($file);
-        foreach ($rows as $row) {
-            if($this->scheme->skipFirstLine==1)
+        foreach ($rows as $lineno => $row) {
+            if($this->scheme->skipFirstLine==1 && $lineno === 0)
                 continue;
 
             if (!$this->isValidRow($row))
